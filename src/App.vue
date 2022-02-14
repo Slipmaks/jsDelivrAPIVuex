@@ -7,27 +7,32 @@
 
   <div>
     <h3>{{ inputSearchText }}</h3>
-    <div v-if="rawData">
+    <div v-if="paginatedData">
       <p>Data</p>
-      <div v-for="p in rawData" :key="p.package.name">
-        <p>{{ p.package.name }}</p>
+      <div v-for="p in paginatedData" :key="p.package.name">
+        <h2>{{ p.package.name }} - {{ p.package.version }}</h2>
+        <p>{{ p.package.description }}</p>
       </div>
+    </div>
+    <div>
+      <button @click="prevPage" :disabled="pageNumber == 0">Previous</button>
+      <button @click="nextPage" :disabled="pageNumber >= packageCount - 1">
+        Next
+      </button>
     </div>
   </div>
 </template>
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 export default {
   setup() {
     const inputSearchText = ref("");
     const rawData = ref([]);
+    const pageNumber = ref("1");
+    const size = ref(10);
 
-    const showData = () => {
-      show.value = !show.value;
-      console.log(show.value);
-    };
-
+    // grab data from npmjs
     const getData = async () => {
       fetch(
         `https://registry.npmjs.org/-/v1/search?text=${inputSearchText.value}`
@@ -37,8 +42,35 @@ export default {
         });
       });
     };
+    //compute page
+    const nextPage = () => {
+      pageNumber.value++;
+      console.log(pageNumber.value);
+    };
+    const prevPage = () => {
+      pageNumber.value--;
+    };
+    const packageCount = computed(() => {
+      let list = rawData.value.length;
+      let currentSize = size.value;
+      return Math.ceil(list / currentSize);
+    });
+    const paginatedData = computed(() => {
+      const start = pageNumber.value * size.value;
+      const end = start + size.value;
+      console.log(start + " " + end);
+      return rawData.value.slice(start, end);
+    });
 
-    return { inputSearchText, getData, rawData };
+    return {
+      inputSearchText,
+      getData,
+      paginatedData,
+      packageCount,
+      nextPage,
+      prevPage,
+      pageNumber,
+    };
   },
 };
 </script>
