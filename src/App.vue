@@ -25,7 +25,11 @@
       </div>
     </div>
   </div>
-  <NpmModal v-if="showModal" :currentPackage="currentPackage"></NpmModal>
+  <NpmModal
+    v-if="showModal"
+    :currentPackage="currentPackage"
+    @close="hideDetails"
+  ></NpmModal>
 </template>
 <script>
 import { computed, ref } from "vue";
@@ -66,7 +70,10 @@ export default {
       store.dispatch("getCurrentPackage", p);
     };
     const showDetails = () => {
-      showModal.value = !showModal.value;
+      showModal.value = true;
+    };
+    const hideDetails = () => {
+      showModal.value = false;
     };
     return {
       inputSearchText,
@@ -80,6 +87,7 @@ export default {
       showModal,
       currentPackage,
       findCurrentPackage,
+      hideDetails,
     };
   },
   components: { NpmModal },
