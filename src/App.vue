@@ -45,7 +45,6 @@ export default {
     //compute page
     const nextPage = () => {
       pageNumber.value++;
-      console.log(pageNumber.value);
     };
     const prevPage = () => {
       pageNumber.value--;
@@ -58,7 +57,6 @@ export default {
     const paginatedData = computed(() => {
       const start = pageNumber.value * size.value;
       const end = start + size.value;
-      console.log(start + " " + end);
       return rawData.value.slice(start, end);
     });
 
