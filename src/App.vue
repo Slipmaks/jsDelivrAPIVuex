@@ -5,24 +5,50 @@
       v-model="inputSearchText"
       @keypress.enter="handleGetData"
     />
-    <button @click="handleGetData">submit</button>
+    <v-btn @click="handleGetData">submit</v-btn>
   </div>
 
   <div>
     <h3>search: {{ inputSearchText }}</h3>
     <div v-if="paginatedData.length">
-      <div v-for="p in paginatedData" :key="p.package" @click="showDetails">
-        <div @click="findCurrentPackage(p.package)">
-          <h2>{{ p.package.name }} - {{ p.package.version }}</h2>
-          <p>{{ p.package.description }}</p>
+      <v-table fixed-header>
+        <thead>
+          <tr>
+            <th class="text-left">Package</th>
+            <th class="text-left">Version</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tr v-for="p in paginatedData" :key="p.package" @click="showDetails">
+          <td @click="findCurrentPackage(p.package)">
+            {{ p.package.name }}
+          </td>
+          <td>{{ p.package.version }}</td>
+          <!-- <p>{{ p.package.description }}</p> -->
+        </tr>
+        <div>
+          <v-btn
+            class="ma-2"
+            color="cyan"
+            dark
+            @click="prevPage"
+            :disabled="pageNumber == 0"
+          >
+            <v-icon dark left>mdi-arrow-left</v-icon>
+            Previous
+          </v-btn>
+          <v-btn
+            class="ma-2"
+            color="cyan"
+            dark
+            @click="nextPage"
+            :disabled="pageNumber >= packageCount - 1"
+          >
+            Next
+            <v-icon dark right>mdi-arrow-right</v-icon>
+          </v-btn>
         </div>
-      </div>
-      <div>
-        <button @click="prevPage" :disabled="pageNumber == 0">Previous</button>
-        <button @click="nextPage" :disabled="pageNumber >= packageCount - 1">
-          Next
-        </button>
-      </div>
+      </v-table>
     </div>
   </div>
   <NpmModal
@@ -94,4 +120,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>
