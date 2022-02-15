@@ -2,22 +2,16 @@
   <v-app>
     <v-container>
       <v-row class="search">
-        <v-col cols="1">
-          <span><v-icon color="blue">mdi-magnify</v-icon>search:</span>
-        </v-col>
-        <v-col cols="2" sm="2" md="2">
-          <input
-            autofocus
-            placeholder="Find all npm packages :)"
-            v-model="inputSearchText"
-            @keypress.enter="handleGetData"
-          />
-        </v-col>
-        <v-col cols="1"
-          ><v-btn @click="handleGetData" color="light-blue"
-            >submit</v-btn
-          ></v-col
-        >
+        <span><v-icon color="blue">mdi-magnify</v-icon>search:</span>
+
+        <input
+          autofocus
+          placeholder="Find all npm packages :)"
+          v-model="inputSearchText"
+          @keypress.enter="handleGetData"
+        />
+
+        <v-btn @click="handleGetData" color="light-blue">submit</v-btn>
       </v-row>
     </v-container>
 
@@ -131,14 +125,31 @@ export default {
 <style scoped>
 .search {
   align-items: flex-end;
+  justify-content: center;
+}
+.search span {
+  margin-right: 5px;
 }
 .search input:focus-visible {
   outline: none;
 }
-@media screen and (max-width: 1280px) {
+.v-container {
+  margin-top: 25%;
+
+  width: 80%;
+}
+.v-main {
+  margin: 0 10%;
+  border: 1px solid grey;
+  flex: 0 0 auto;
+}
+tr {
+  cursor: pointer;
+}
+/* @media screen and (max-width: 1280px) {
   .search {
     align-items: baseline;
     flex-direction: column;
   }
-}
+} */
 </style>

@@ -42,6 +42,7 @@ export default {
 <style scoped>
 .v-icon {
   align-self: end;
+  cursor: pointer;
 }
 .v-list {
   display: flex;
