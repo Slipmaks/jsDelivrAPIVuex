@@ -1,19 +1,28 @@
 <template>
   <v-app>
-    <v-app-bar color="grey-lighter-2">
-      <h3><v-icon color="blue-grey darken-2">mdi-magnify</v-icon>search:</h3>
-      <div>
-        <input
-          type="text"
-          v-model="inputSearchText"
-          @keypress.enter="handleGetData"
-        />
-        <v-btn @click="handleGetData">submit</v-btn>
-      </div>
-    </v-app-bar>
+    <v-container>
+      <v-row class="search">
+        <v-col cols="1">
+          <span><v-icon color="blue">mdi-magnify</v-icon>search:</span>
+        </v-col>
+        <v-col cols="2" sm="2" md="2">
+          <input
+            autofocus
+            placeholder="Find all npm packages :)"
+            v-model="inputSearchText"
+            @keypress.enter="handleGetData"
+          />
+        </v-col>
+        <v-col cols="1"
+          ><v-btn @click="handleGetData" color="light-blue"
+            >submit</v-btn
+          ></v-col
+        >
+      </v-row>
+    </v-container>
 
     <v-main v-if="paginatedData.length">
-      <v-table>
+      <v-table class="ma-2">
         <thead>
           <tr>
             <th class="text-left">Package</th>
@@ -31,7 +40,6 @@
           <v-btn
             class="ma-2"
             color="cyan"
-            dark
             @click="prevPage"
             :disabled="pageNumber == 0"
           >
@@ -41,7 +49,6 @@
           <v-btn
             class="ma-2"
             color="cyan"
-            dark
             @click="nextPage"
             :disabled="pageNumber >= packageCount - 1"
           >
@@ -121,4 +128,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.search {
+  align-items: flex-end;
+}
+.search input:focus-visible {
+  outline: none;
+}
+</style>

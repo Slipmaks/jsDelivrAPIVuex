@@ -1,20 +1,30 @@
 <template>
   <div class="backdrop" @click.self="closeModal">
-    <div class="modal" @click="closeModal">
-      <v-icon>mdi-close</v-icon>
-      <h1>Package name: {{ currentPackage.name }}</h1>
-      <h3>Description: {{ currentPackage.description }}</h3>
-      <p>version: {{ currentPackage.version }}</p>
-      <div v-if="currentPackage.keywords">
-        <h3>Tags:</h3>
-        <div v-for="tag in currentPackage.keywords" :key="tag">
-          <span>{{ tag }}</span>
-        </div>
-      </div>
+    <div class="modal">
+      <v-icon @click="closeModal">mdi-close</v-icon>
+      <v-spacer></v-spacer>
+      <span class="text-h4">Package name: {{ currentPackage.name }}</span>
+      <v-spacer></v-spacer>
+      <span>Description: {{ currentPackage.description }}</span>
+      <v-spacer></v-spacer>
+      <span>version: {{ currentPackage.version }}</span>
+      <v-spacer></v-spacer>
+      <v-list v-if="currentPackage.keywords">
+        <v-list-subheader>Tags:</v-list-subheader>
+        <v-list-item
+          v-for="tag in currentPackage.keywords"
+          :key="tag"
+          class="text-no-wrap"
+          active-color="primary"
+          variant="plain"
+        >
+          <span class="tag">{{ tag }}</span>
+        </v-list-item>
+      </v-list>
 
-      <footer v-if="currentPackage.author">
-        <h2>Author: {{ currentPackage.author.name }}</h2>
-      </footer>
+      <v-footer v-if="currentPackage.author">
+        <span>Author: {{ currentPackage.author.name }}</span>
+      </v-footer>
     </div>
   </div>
 </template>
@@ -29,4 +39,38 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.v-icon {
+  align-self: end;
+}
+.v-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #e9e9e9;
+  padding: 5px;
+  border-radius: 4px;
+  margin: 2px;
+}
+.v-list--density-default.v-list--one-line .v-list-item {
+  padding: 0;
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+}
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  padding: 20px;
+  margin: 100px auto;
+  background: white;
+  border-radius: 10px;
+}
+</style>
