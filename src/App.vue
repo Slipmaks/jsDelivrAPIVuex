@@ -1,17 +1,19 @@
 <template>
-  <div>
-    <input
-      type="text"
-      v-model="inputSearchText"
-      @keypress.enter="handleGetData"
-    />
-    <v-btn @click="handleGetData">submit</v-btn>
-  </div>
+  <v-app>
+    <v-app-bar color="grey-lighter-2">
+      <h3><v-icon color="blue-grey darken-2">mdi-magnify</v-icon>search:</h3>
+      <div>
+        <input
+          type="text"
+          v-model="inputSearchText"
+          @keypress.enter="handleGetData"
+        />
+        <v-btn @click="handleGetData">submit</v-btn>
+      </div>
+    </v-app-bar>
 
-  <div>
-    <h3>search: {{ inputSearchText }}</h3>
-    <div v-if="paginatedData.length">
-      <v-table fixed-header>
+    <v-main v-if="paginatedData.length">
+      <v-table>
         <thead>
           <tr>
             <th class="text-left">Package</th>
@@ -24,7 +26,6 @@
             {{ p.package.name }}
           </td>
           <td>{{ p.package.version }}</td>
-          <!-- <p>{{ p.package.description }}</p> -->
         </tr>
         <div>
           <v-btn
@@ -49,13 +50,13 @@
           </v-btn>
         </div>
       </v-table>
-    </div>
-  </div>
-  <NpmModal
-    v-if="showModal"
-    :currentPackage="currentPackage"
-    @close="hideDetails"
-  ></NpmModal>
+    </v-main>
+    <NpmModal
+      v-if="showModal"
+      :currentPackage="currentPackage"
+      @close="hideDetails"
+    ></NpmModal>
+  </v-app>
 </template>
 <script>
 import { computed, ref } from "vue";

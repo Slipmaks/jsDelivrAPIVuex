@@ -1,6 +1,7 @@
 <template>
   <div class="backdrop" @click.self="closeModal">
-    <div class="modal">
+    <div class="modal" @click="closeModal">
+      <v-icon>mdi-close</v-icon>
       <h1>Package name: {{ currentPackage.name }}</h1>
       <h3>Description: {{ currentPackage.description }}</h3>
       <p>version: {{ currentPackage.version }}</p>
@@ -14,7 +15,6 @@
       <footer v-if="currentPackage.author">
         <h2>Author: {{ currentPackage.author.name }}</h2>
       </footer>
-      <button @click="closeModal">X</button>
     </div>
   </div>
 </template>
