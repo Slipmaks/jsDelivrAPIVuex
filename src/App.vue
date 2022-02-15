@@ -135,4 +135,10 @@ export default {
 .search input:focus-visible {
   outline: none;
 }
+@media screen and (max-width: 1280px) {
+  .search {
+    align-items: baseline;
+    flex-direction: column;
+  }
+}
 </style>

@@ -73,4 +73,9 @@ export default {
   background: white;
   border-radius: 10px;
 }
+@media screen and (max-width: 660px) {
+  .modal {
+    width: 96%;
+  }
+}
 </style>
