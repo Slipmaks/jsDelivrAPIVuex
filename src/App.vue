@@ -1,7 +1,8 @@
 <template>
   <v-app>
+    <the-header></the-header>
     <v-container>
-      <v-row class="search">
+      <v-row class="search d-flex align-center my-1">
         <span><v-icon color="blue">mdi-magnify</v-icon>search:</span>
 
         <input
@@ -30,7 +31,7 @@
           </td>
           <td>{{ p.package.version }}</td>
         </tr>
-        <div>
+        <div class="d-flex">
           <v-btn
             class="ma-2"
             color="cyan"
@@ -49,6 +50,7 @@
             Next
             <v-icon dark right>mdi-arrow-right</v-icon>
           </v-btn>
+          <v-pagination :length="packageCount" rounded="circle"></v-pagination>
         </div>
       </v-table>
     </v-main>
@@ -63,6 +65,7 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import NpmModal from "./components/NpmModal.vue";
+import TheHeader from "./components/TheHeader.vue";
 
 export default {
   setup() {
@@ -83,7 +86,7 @@ export default {
       pageNumber.value--;
     };
     const data = computed(() => store.state.rawData);
-    const currentPackage = computed(() => store.state.currentPackage);
+    const currentPackage = computed(() => store.getters.currentPackage);
     const packageCount = computed(() => {
       let list = data.value.length;
       let currentSize = size.value;
@@ -103,6 +106,9 @@ export default {
     const hideDetails = () => {
       showModal.value = false;
     };
+    const lengthPages = computed(() => {
+      return data.value.length / 10;
+    });
     return {
       inputSearchText,
       handleGetData,
@@ -116,9 +122,10 @@ export default {
       currentPackage,
       findCurrentPackage,
       hideDetails,
+      lengthPages,
     };
   },
-  components: { NpmModal },
+  components: { NpmModal, TheHeader },
 };
 </script>
 
@@ -134,8 +141,6 @@ export default {
   outline: none;
 }
 .v-container {
-  margin-top: 25%;
-
   width: 80%;
 }
 .v-main {

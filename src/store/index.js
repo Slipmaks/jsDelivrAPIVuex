@@ -27,5 +27,10 @@ const store = createStore({
       context.commit("setCurrentPackage", p);
     },
   },
+  getters: {
+    packages(state) {
+      return state.currentPackage;
+    },
+  },
 });
 export default store;
