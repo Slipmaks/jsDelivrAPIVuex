@@ -1,7 +1,7 @@
 <template>
   <section class="header">
     <header
-      class="ma-8 my-lg-12 mx-lg-16 px-lg-16 d-flex justify-space-between align-center"
+      class="ma-8 my-lg-12 mx-lg-16 px-lg-16 d-flex justify-lg-space-between align-center gap-1"
     >
       <section class="d-flex align-center">
         <v-avatar size="84px">
