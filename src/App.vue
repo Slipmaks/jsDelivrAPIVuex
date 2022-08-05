@@ -31,6 +31,15 @@
           </td>
           <td>{{ p.package.version }}</td>
         </tr>
+
+        <!-- <v-pagination
+          v-model="page"
+          :length="packageCount"
+          :total-visible="7"
+          rounded="circle"
+          prev-icon=""
+          next-icon=""
+        ></v-pagination> -->
         <div class="d-flex">
           <v-btn
             class="ma-2"
@@ -41,6 +50,7 @@
             <v-icon dark left>mdi-arrow-left</v-icon>
             Previous
           </v-btn>
+
           <v-btn
             class="ma-2"
             color="cyan"
@@ -50,7 +60,6 @@
             Next
             <v-icon dark right>mdi-arrow-right</v-icon>
           </v-btn>
-          <v-pagination :length="packageCount" rounded="circle"></v-pagination>
         </div>
       </v-table>
     </v-main>
@@ -85,8 +94,11 @@ export default {
     const prevPage = () => {
       pageNumber.value--;
     };
+    const page = computed(() => {
+      return pageNumber.value + 1;
+    });
     const data = computed(() => store.state.rawData);
-    const currentPackage = computed(() => store.getters.currentPackage);
+    const currentPackage = computed(() => store.state.currentPackage);
     const packageCount = computed(() => {
       let list = data.value.length;
       let currentSize = size.value;
@@ -123,6 +135,7 @@ export default {
       findCurrentPackage,
       hideDetails,
       lengthPages,
+      page,
     };
   },
   components: { NpmModal, TheHeader },
@@ -151,10 +164,9 @@ export default {
 tr {
   cursor: pointer;
 }
-/* @media screen and (max-width: 1280px) {
-  .search {
-    align-items: baseline;
-    flex-direction: column;
+@media screen and (max-width: 720px) {
+  .v-main {
+    margin: 0 4%;
   }
-} */
+}
 </style>

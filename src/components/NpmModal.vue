@@ -5,9 +5,10 @@
       <v-spacer></v-spacer>
       <span class="text-h4">Package name: {{ currentPackage.name }}</span>
       <v-spacer></v-spacer>
-      <span>Description: {{ currentPackage.description }}</span>
+      <span>Version: {{ currentPackage.version }}</span>
       <v-spacer></v-spacer>
-      <span>version: {{ currentPackage.version }}</span>
+      <span>Description: {{ currentPackage.description }}</span>
+
       <v-spacer></v-spacer>
       <v-list v-if="currentPackage.keywords">
         <v-list-subheader>Tags:</v-list-subheader>
@@ -18,7 +19,7 @@
           active-color="primary"
           variant="plain"
         >
-          <span class="tag">{{ tag }}</span>
+          <v-chip>{{ tag }}</v-chip>
         </v-list-item>
       </v-list>
 

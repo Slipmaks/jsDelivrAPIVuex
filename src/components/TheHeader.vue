@@ -1,6 +1,8 @@
 <template>
   <section class="header">
-    <header class="ma-12 d-flex justify-space-between align-center">
+    <header
+      class="ma-8 my-lg-12 mx-lg-16 px-lg-16 d-flex justify-space-between align-center"
+    >
       <section class="d-flex align-center">
         <v-avatar size="84px">
           <img src="../assets/photo.jpg" alt="Avatar" />
@@ -9,7 +11,12 @@
       </section>
       <section>
         <a href="http://github.com/Slipmaks" target="_blank">
+          <v-tooltip activator="parent" location="start">github</v-tooltip>
           <v-icon>mdi-github</v-icon>
+        </a>
+        <a href="https://telegram.me/+380669723993" target="_blank">
+          <v-tooltip activator="parent" location="start">telegram</v-tooltip>
+          <v-icon>mdi-forum</v-icon>
         </a>
       </section>
     </header>
@@ -23,6 +30,9 @@ a {
   text-decoration: none;
 }
 a:visited {
+  color: inherit;
+}
+a {
   color: inherit;
 }
 </style>
